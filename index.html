@@ -101,36 +101,36 @@
 		
 // COMUNAS 
 
-	var comunas = L.tileLayer.wms('http://ws-idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
+	var comunas = L.tileLayer.wms('http://localhost:8080/geoserver/sig3/wms?service=WMS',
 		{
-		layers: 'idesc:mc_comunas',
+		layers: 'sig3:comunas_wgs',
 		format: 'image/png',
 		transparent: true,
 		});
 		map.addLayer(comunas);
 
-// ESTACIONES
-	var estaciones = L.tileLayer.wms('http://ws-idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
+// LUGARES
+	var estaciones = L.tileLayer.wms('http://localhost:8080/geoserver/sig3/wms?service=WMS',
 		{
-		layers: 'metrocali:sitm_estaciones',
+		layers: 'sig3:Sitios',
 		format: 'image/png',
 		transparent: true,
 		});
 		map.addLayer(estaciones);
 		
 // VIAS
-var estaciones = L.tileLayer.wms('http://ws-idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
+var vias = L.tileLayer.wms('http://localhost:8080/geoserver/sig3/wms?service=WMS',
 		{
-		layers: 'metrocali:sitm_estaciones',
+		layers: 'sig3:Vias',
 		format: 'image/png',
 		transparent: true,
 		});
-		map.addLayer(estaciones);
+		map.addLayer(vias);
 
 	leyenda.addOverlay(barrios, 'Barrios');
 	leyenda.addOverlay(comunas, 'Comunas');
-	leyenda.addOverlay(estaciones, 'Estaciones mio');
-	leyenda.addOverlay(estaciones, 'Estaciones mio');
+	leyenda.addOverlay(estaciones, 'Lugares');
+	leyenda.addOverlay(vias,'Vias');
 
 	
 
