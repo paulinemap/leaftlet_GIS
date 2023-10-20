@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>  <!-- plugin jquery -->
+	
+	
+	
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js"></script>
+	
+	
+	
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.css" />
+	
+	
+	
+	<script src="leaflet-heat.js"></script>
+	<title>Ejemplo 3</title>
+	
+	
+	
+	<style>
+	*{	
+		padding: 0% ;
+		margin: 0% 0%;		
+	}
+	html, body{
+	height:100% ;
+	width:100% vw;
+	}
+	
+	
+	#map{
+
+	width:100%;
+	height:100%;}
+
+	#norte{
+	position:fixed;
+	width:2%;
+	left: 3%;
+	padding: 1.2%;
+	}
+	
+	
+	</style>
+	
+	
+	
+	</head>	
+	<body>
+
+
+			<div id="map" style="z-index:0">
+				<img id="norte" src="norte.png" style="z-index:9999" ></img>
+				<input id="seleccionar_color" type="color" style="z-index:9999">
+			</div>
+
+
+	</body>
+	<script>
+
+	
+	var map = L.map('map',
+	{
+		zoom: 10
+	}).setView([3.42335,-76.52086], 12);           ////SE INSERTA UN MAPA EN EL DIV "map" con coordenadas 3.42335,-76.52086
+	
+	
+	var mapabase = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+		{
+			maxZoom: 15,
+			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+		});
+	
+	var mapabase2 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+		})
+	
+
+	mapabase.addTo(map);
+	
+	L.control.scale({position:'bottomleft'}).addTo(map);
+	var leyenda = L.control.layers({mapabase,mapabase2}).addTo(map);
+
+
+	
+// BARRIOS 
+		
+	var barrios = L.tileLayer.wms('http://localhost:8080/geoserver/sig3/wms?service=WMS',
+		{layers: 'sig3:barrios_wgs',
+		attribution: 'SIG3 Univalle',
+		crs: L.CRS.EPSG4326,
+		format: 'image/png',
+		transparent: true});
+		map.addLayer(barrios);
+		
+// COMUNAS 
+
+	var comunas = L.tileLayer.wms('http://ws-idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
+		{
+		layers: 'idesc:mc_comunas',
+		format: 'image/png',
+		transparent: true,
+		});
+		map.addLayer(comunas);
+
+// ESTACIONES
+	var estaciones = L.tileLayer.wms('http://ws-idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
+		{
+		layers: 'metrocali:sitm_estaciones',
+		format: 'image/png',
+		transparent: true,
+		});
+		map.addLayer(estaciones);
+		
+// VIAS
+var estaciones = L.tileLayer.wms('http://ws-idesc.cali.gov.co:8081/geoserver/wms?service=WMS&version=1.1.0',
+		{
+		layers: 'metrocali:sitm_estaciones',
+		format: 'image/png',
+		transparent: true,
+		});
+		map.addLayer(estaciones);
+
+	leyenda.addOverlay(barrios, 'Barrios');
+	leyenda.addOverlay(comunas, 'Comunas');
+	leyenda.addOverlay(estaciones, 'Estaciones mio');
+	leyenda.addOverlay(estaciones, 'Estaciones mio');
+
+	
+
+
+	
+
+	
+	
+
+	
+	
+
+	</script>
+	
+</html> 
